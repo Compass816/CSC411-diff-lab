@@ -6,23 +6,14 @@ use std::convert::TryInto;
 use std::process::exit;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let ppm1 = env::args().nth(1);
+    let ppm2 = env::args().nth(2);
 
     // assert only two arguments are given in the command line
     assert!(
         env::args().len() == 3,
         "Too many arguments!"
     );
-
-    let (img1, img2) = match (args[1].as_str(), args[2].as_str()) {
-        ("-", "-") => {
-            std::process::exit(1);
-        },
-        ("-", file) => (),
-        (file, "-") => (),
-        (file1, file2) => (),
-    };
-
 
     // Set rgb image with th filename
     let img1 = RgbImage::read(ppm1.as_deref()).unwrap();
