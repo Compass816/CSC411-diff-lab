@@ -1,17 +1,28 @@
 use array2::Array2;
-use csc411_image::{GrayImage, Read};
+use csc411_image::{RgbImage, Read, Rgb};
 use std::env;
+use std::io;
+use std::convert::TryInto;
+use std::process::exit;
 
 fn main() {
-    // set up command line argument
-    let ppm1 = env::args().nth(1);
-    let ppm2 = env::args().nth(2);
+    let args: Vec<String> = env::args().collect();
 
     // assert only two arguments are given in the command line
     assert!(
-        env::args().len() == 2,
+        env::args().len() == 3,
         "Too many arguments!"
     );
+
+    let (img1, img2) = match (args[1].as_str(), args[2].as_str()) {
+        ("-", "-") => {
+            std::process::exit(1);
+        },
+        ("-", file) => (),
+        (file, "-") => (),
+        (file1, file2) => (),
+    };
+
 
     // Set rgb image with th filename
     let img1 = RgbImage::read(ppm1.as_deref()).unwrap();
@@ -28,6 +39,7 @@ fn main() {
     let pixels_vec1: Vec<Rgb> = img1.pixels.clone();
     let pixels_vec2: Vec<Rgb> = img2.pixels.clone();
 
+    // Create Array2s 
     let img1 = Array2::from_row_major(width1, height1, pixels_vec1).unwrap();
     let img2 = Array2::from_row_major(width2, height2, pixels_vec2).unwrap();
 
