@@ -45,7 +45,7 @@ fn main() {
 
         e += (r1 - r2).powi(2) + (g1 - g2).powi(2) + (b1 - b2).powi(2);
     }
-
+    e = e.sqrt();
     e = e / (3.0 * width1 as f64 * height1 as f64);
     println!("{:.4}", e);
 }
