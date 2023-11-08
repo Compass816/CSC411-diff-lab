@@ -1,9 +1,7 @@
 use array2::Array2;
 use csc411_image::{RgbImage, Read, Rgb};
 use std::env;
-use std::io;
 use std::convert::TryInto;
-use std::process::exit;
 
 fn main() {
     let ppm1 = env::args().nth(1);
@@ -11,7 +9,7 @@ fn main() {
 
     // assert only two arguments are given in the command line
     assert!(
-        env::args().len() == 3,
+        env::args().len() <= 3,
         "Too many arguments!"
     );
 
@@ -22,7 +20,6 @@ fn main() {
     // Get the width and height from the image
     let height1 = img1.height.try_into().unwrap();
     let width1 = img1.width.try_into().unwrap();
-
     let height2 = img2.height.try_into().unwrap();
     let width2 = img2.width.try_into().unwrap();
 
@@ -33,6 +30,4 @@ fn main() {
     // Create Array2s 
     let img1 = Array2::from_row_major(width1, height1, pixels_vec1).unwrap();
     let img2 = Array2::from_row_major(width2, height2, pixels_vec2).unwrap();
-
-
 }
