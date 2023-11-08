@@ -30,4 +30,22 @@ fn main() {
     // Create Array2s 
     let img1 = Array2::from_row_major(width1, height1, pixels_vec1).unwrap();
     let img2 = Array2::from_row_major(width2, height2, pixels_vec2).unwrap();
+
+     let mut e = 0.0;
+    for (x, y, pixel1) in img1.iter_row_major() {
+        let pixel2 = img2.get(x, y);
+
+        let r1 = pixel1.red as f64;
+        let g1 = pixel1.green as f64;
+        let b1 = pixel1.blue as f64;
+
+        let r2 = pixel2.red as f64;
+        let g2 = pixel2.green as f64;
+        let b2 = pixel2.blue as f64;
+
+        e += (r1 - r2).powi(2) + (g1 - g2).powi(2) + (b1 - b2).powi(2);
+    }
+
+    e = e / (3.0 * width1 as f64 * height1 as f64);
+    println!("{:.4}", e);
 }
